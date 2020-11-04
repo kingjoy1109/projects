@@ -15,12 +15,12 @@ webpush.setVapidDetails(
 
 let sub = {
   endpoint:
-    "https://fcm.googleapis.com/fcm/send/coBl5CZn0yI:APA91bHkmtZ5IFHGy2W8dG0EL7YtvBu9L02gek5OwHqvZa_n1hpp9JyvWnaOAZQIOEe_PSlhXTsDZeGs04iDpRvI3l4PR47z07YclewDZfmndAN_WdkkAWLtx5AJTSeoGAf81WZMcEMh",
+    "https://sg2p.notify.windows.com/w/?token=BQYAAADpwf8CbQYC8daWYc9sQAxNO44Dsea4UbrhkqH25sodxIdcaK0a4XESS5VWPIrk0v1Vn5j5qrDHwWut6eI9bqHgeNOf2UnTD8HQZwZK3G3zbWxqhFYp8P3rJM4DOvEPK3pgaQ8BJeN3y50H87jmA6bO%2bQy8%2fNomapQPp2dq7ne1JO3e4blJSI82xtkeMP9o1xdbSLKZZPBHh07cY%2fSQm5Tjt%2fJq0wySiRMteNw9wSqTGllCoyd8DFgExTt2b6rCOyLuQWg0E%2fMrWibBDVhkgr4lYuOeZYvUAhRF%2btZrPhxD6o%2bd%2b9BiD5ie27WjpHHXZ9Zo1nqiPNn4Aarvlfp3QXLp",
   expirationTime: null,
   keys: {
     p256dh:
-      "BMo6gP5wPZr8WkMoTxi3ueZs8CkR4dBnHJC-cL6MCtAQzfkQaJNPg1WC1NqCG_N67d5AHUHcpwFvm8-VlQVnOIw",
-    auth: "JgabLrTShnJvlUNWtmwGww",
+      "BH-02Qzt-ay8aXXpMdH1yMmNlMcx7O9L5atRTG9zY8CvanICLSm28NZYGr70AHlqfe0qAH5FcQKcQm5gLKUsduA",
+    auth: "DYrx44uWBcYWgaSP21DMsA",
   },
 };
 
