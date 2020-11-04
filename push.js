@@ -24,4 +24,4 @@ let sub = {
   },
 };
 
-push.sendNotification(sub, "Test Message");
+webpush.sendNotification(sub, "Test Message");
