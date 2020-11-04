@@ -7,7 +7,7 @@
 <body>
   <h1>Test Page</h1>
 
-<a href="./sample.html">sample</a>
+<a href="./sample.php">sample</a>
 
 <script type="text/javascript">
 function base64UrlToUint8Array(base64UrlData) {
