@@ -1,69 +1,30 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Web Push Demo</title>
-  <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-  <h1>Test Page</h1>
+    <button onclick="subscribe()">Subscribe</button>
 
-<a href="./sample.php">sample</a>
+    <script>
 
-<script type="text/javascript">
-function base64UrlToUint8Array(base64UrlData) {
-  const padding = '='.repeat((4 - base64UrlData.length % 4) % 4);
-  const base64 = (base64UrlData + padding)
-    .replace(/\-/g, '+')
-    .replace(/_/g, '/');
-  const rawData = atob(base64);
-  const buffer = new Uint8Array(rawData.length);
-  for (let i = 0; i < rawData.length; ++i) {
-    buffer[i] = rawData.charCodeAt(i);
-  }
-  return buffer;
-}
+      addEventListener("load", async()=>{
+        let sw = await navigator.serviceWorker.register('../sw.js')
+        console.log(sw)
+      })
 
-(function() {
-  if (!('serviceWorker' in navigator)) {
-    return;
-  }
+      async function subscribe(){
+        let sw = await navigator.serviceWorker.ready;
+        let push = await sw.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: 
+              'BAwt0Q-xmEsMJmiUogjK0-8jifPsB2NAR_5eSATzHLd3LYA6Jm_diDN643cigQQl-_kkApym-Mb5815qf2EUN5w'
+        })
 
-  return navigator.serviceWorker.register('sw.js')
-  .then(function(registration) {
-    console.log('service worker registered');
-    return navigator.serviceWorker.ready;
-  })
-  .then(function(reg) {
-    var channel = new MessageChannel();
-    channel.port1.onmessage = function(e) {
-      window.document.title = e.data;
-    }
-    reg.active.postMessage('setup', [channel.port2]);
-
-    var subscribeOptions = { userVisibleOnly: true };
-    // Figure out the vapid key
-    var searchParam = window.location.search;
-    vapidRegex = searchParam.match(/vapid=(.[^&]*)/);
-    if (vapidRegex) {
-      // Convert the base 64 encoded string
-      subscribeOptions.applicationServerKey = base64UrlToUint8Array(vapidRegex[1]);
-    }
-
-    console.log(subscribeOptions);
-
-    return reg.pushManager.subscribe(subscribeOptions);
-  })
-  .then(function(subscription) {
-    console.log(JSON.stringify(subscription));
-    window.subscribeSuccess = true;
-    window.testSubscription = JSON.stringify(subscription);
-  })
-  .catch(function(err) {
-    window.subscribeSuccess = false;
-    window.subscribeError = err;
-  });
-})();
-
-</script>
+        console.log(JSON.stringify(push))
+      }
+    </script>
 </body>
 </html>
