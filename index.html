@@ -1,41 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+	<title>SKU Extractor</title>
 </head>
-<body>
-    <button onclick="subscribe()">Subscribe</button>
-    <button onclick="notify()">Notify Me!</button>
+<body style="font-family: helvetica; text-shadow: 1px 2px 1px #ccc">
+	<h2 style="text-align:center">SKU EXTRACTOR</h2>
+	<textarea cols="20" rows="30" style="float:left; width:40%; margin-left:10%" oninput="extractSKU(this, this.value)" placeholder="Paste your walmart link here"></textarea>
+	<div style=" float:right; margin-right:5%;">
+	<button style="background: #008fff; color:#ffffff; padding:10px 10px" onclick="copyToClipboard()">Copy</button>
+	<br>
+	<span style="position:absolute; margin-right:3%; font-size: 16px;display:none" id="copied">Copied!</span>
+	</div>
+	<textarea cols="20" rows="30" style="float:right; width:30%; margin-right:1%" id="extracted" placeholder="Extracted SKU"	></textarea>
 
-    <script>
-      var code = ''
-      addEventListener("load", async()=>{
-        let sw = await navigator.serviceWorker.register('./sw.js')
-        console.log(sw)
-      })
+	<script>
+			function extractSKU(e, val){
+				document.getElementById("extracted").value = '';
 
-      async function subscribe(){
-        let sw = await navigator.serviceWorker.ready;
-        let push = await sw.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: 
-              'BAwt0Q-xmEsMJmiUogjK0-8jifPsB2NAR_5eSATzHLd3LYA6Jm_diDN643cigQQl-_kkApym-Mb5815qf2EUN5w'
-        })
+				var allSKU = []
+				var lines = val.split("\n"); 
+				for(var x=0;x<lines.length;x++){
+					var slice = lines[x].split("/");
+					var len = slice.length;
+					var sku = slice[len-1].split("?");
+					document.getElementById("extracted").value += sku[0].trim()+"\n";
+				}
+					document.getElementById("extracted").trim()
+					console.log(allSKU)
 
-        code = JSON.stringify(push)
-        console.log(JSON.stringify(push))
-      }
-    </script>
-    
-    <!-- <script src="node_modules/web-push/src/index.js"></script> -->
+			}
 
-    <script>
-      function notify(){
-          console.log(sub)
-          webpush.sendNotification(sub, "Test Message");
-      }
-    </script>
+			function copyToClipboard(){
+				var copyTextarea = document.getElementById("extracted");
+				copyTextarea.select(); //select the text area
+				document.execCommand("copy"); //copy to clipboard
+				document.getSelection().removeAllRanges();
+				document.getElementById("copied").style.display="block"
+				setTimeout(function(){
+					document.getElementById("copied").style.display="none"
+				},4000)
+			}
+	</script>
 </body>
 </html>
